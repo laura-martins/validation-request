@@ -3,13 +3,14 @@ package br.com.validation.request.validationRequest.usecase
 import br.com.validation.request.validationRequest.domain.QrCode
 import br.com.validation.request.validationRequest.port.QrCodePort
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 
 @Component
-class FindQrCodeUseCase(
+class CreateQrCodeUseCase(
     private val qrCodePort: QrCodePort
 ) {
 
-    fun execute(transactionId: String): QrCode {
-        return qrCodePort.findById(transactionId)
+    fun execute(amount: BigDecimal): QrCode {
+        return qrCodePort.save(amount)
     }
 }

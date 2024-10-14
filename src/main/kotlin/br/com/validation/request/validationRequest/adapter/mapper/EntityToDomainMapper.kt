@@ -10,3 +10,10 @@ fun QrCodeEntity.toDomain(): QrCode {
         createdAt = this.createdAt
     )
 }
+
+fun QrCode.toEntity(transactionId: String): QrCodeEntity {
+    return QrCodeEntity(
+        transactionId = transactionId,
+        amount = this.amount
+    )
+}
