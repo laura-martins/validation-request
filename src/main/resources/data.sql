@@ -1,2 +1,2 @@
-INSERT INTO tb_qrcodes (transaction_id, amount, end_to_end_id) VALUES ('OQRC2e7cd210ff45d8a18babb903e5c78c', '3.3', 'E13702398506972082590258025dQJmC');
-INSERT INTO tb_qrcodes (transaction_id, amount, end_to_end_id) VALUES ('OQRC9e3ae3cbc0457b98e64ec3f7989c16', '10.5', 'E98356205847650289024610278jDaLJ');
+INSERT INTO tb_qrcodes (transaction_id, amount, created_at) VALUES ('OQRC2e7cd210ff45d8a18babb903e5c78c', '3.3', '2023-10-01T10:00:00');
+INSERT INTO tb_qrcodes (transaction_id, amount, created_at) VALUES ('OQRC9e3ae3cbc0457b98e64ec3f7989c16', '10.5', '2023-10-02T11:00:00');

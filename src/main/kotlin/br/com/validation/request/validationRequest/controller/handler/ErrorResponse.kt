@@ -1,4 +1,4 @@
-package br.com.validation.request.validationRequest.controller.exception.handler
+package br.com.validation.request.validationRequest.controller.handler
 
 class ErrorResponse (
 

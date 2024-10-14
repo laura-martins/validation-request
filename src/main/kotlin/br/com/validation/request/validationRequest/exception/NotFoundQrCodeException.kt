@@ -1,4 +1,4 @@
-package br.com.validation.request.validationRequest.controller.exception
+package br.com.validation.request.validationRequest.exception
 
 class NotFoundQrCodeException(
     message: String,

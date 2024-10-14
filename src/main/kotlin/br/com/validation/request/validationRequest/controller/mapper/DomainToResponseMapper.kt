@@ -6,5 +6,5 @@ import br.com.validation.request.validationRequest.domain.QrCode
 fun QrCode.domainToQrCodeResponse() = QrCodeResponse(
     transactionId = this.transactionId,
     amount = this.amount,
-    endToEndId = this.endToEndId
+    createdAt = this.createdAt
 )

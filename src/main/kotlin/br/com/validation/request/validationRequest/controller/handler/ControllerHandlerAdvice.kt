@@ -1,12 +1,11 @@
-package br.com.validation.request.validationRequest.controller.exception.handler
+package br.com.validation.request.validationRequest.controller.handler
 
-import br.com.validation.request.validationRequest.controller.exception.NotFoundQrCodeException
+import br.com.validation.request.validationRequest.exception.NotFoundQrCodeException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import java.lang.Exception
 
 @RestControllerAdvice
 class ControllerHandlerAdvice {
