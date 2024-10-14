@@ -4,7 +4,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
@@ -15,8 +14,8 @@ data class QrCodeEntity (
     @Column(name = "transaction_id", length = 34)
     var transactionId: String = "",
 
-    @Column(name = "amount", precision = 10, scale = 2)
-    val amount: BigDecimal = BigDecimal.ZERO,
+    @Column(name = "amount")
+    val amount: Double = 0.0,
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now()

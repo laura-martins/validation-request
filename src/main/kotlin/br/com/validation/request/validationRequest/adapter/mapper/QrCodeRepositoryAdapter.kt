@@ -6,7 +6,6 @@ import br.com.validation.request.validationRequest.port.QrCodePort
 import br.com.validation.request.validationRequest.port.QrCodeRepository
 import br.com.validation.request.validationRequest.util.generateTransactionId
 import org.springframework.stereotype.Component
-import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Component
@@ -26,7 +25,7 @@ class QrCodeRepositoryAdapter(
         }
     }
 
-    override fun save(amount: BigDecimal): QrCode {
+    override fun save(amount: Double): QrCode {
         try {
             val qrCode = QrCode(
                 transactionId = generateTransactionId(),

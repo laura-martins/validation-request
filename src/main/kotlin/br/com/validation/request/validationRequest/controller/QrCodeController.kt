@@ -5,12 +5,10 @@ import br.com.validation.request.validationRequest.controller.request.QrCodeRequ
 import br.com.validation.request.validationRequest.controller.response.QrCodeResponse
 import br.com.validation.request.validationRequest.usecase.CreateQrCodeUseCase
 import br.com.validation.request.validationRequest.usecase.FindQrCodeUseCase
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import javax.validation.Valid
 
-@Validated
 @RestController
 @RequestMapping(value = ["/qrcodes"])
 class QrCodeController (
