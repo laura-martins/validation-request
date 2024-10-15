@@ -18,5 +18,11 @@ data class QrCodeEntity (
     val amount: Double = 0.0,
 
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(name = "description")
+    val description: String? = null,
+
+    @Column(name = "expiration_date")
+    val expirationDate: LocalDateTime? = null
 )

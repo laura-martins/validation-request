@@ -7,13 +7,18 @@ fun QrCodeEntity.toDomain(): QrCode {
     return QrCode(
         transactionId = this.transactionId,
         amount = this.amount,
-        createdAt = this.createdAt
+        createdAt = this.createdAt,
+        description = this.description,
+        expirationDate = this.expirationDate
     )
 }
 
 fun QrCode.toEntity(transactionId: String): QrCodeEntity {
     return QrCodeEntity(
         transactionId = transactionId,
-        amount = this.amount
+        amount = this.amount,
+        createdAt = this.createdAt,
+        description = this.description,
+        expirationDate = this.expirationDate
     )
 }

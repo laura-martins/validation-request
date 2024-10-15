@@ -7,5 +7,5 @@ interface QrCodePort {
 
     fun findById(transactionId: String) : QrCode
 
-    fun save(amount: Double) : QrCode
+    fun save(qrCode: QrCode) : QrCode
 }

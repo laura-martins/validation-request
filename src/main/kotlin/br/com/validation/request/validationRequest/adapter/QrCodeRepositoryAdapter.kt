@@ -1,12 +1,12 @@
-package br.com.validation.request.validationRequest.adapter.mapper
+package br.com.validation.request.validationRequest.adapter
 
+import br.com.validation.request.validationRequest.adapter.mapper.toDomain
+import br.com.validation.request.validationRequest.adapter.mapper.toEntity
 import br.com.validation.request.validationRequest.domain.QrCode
 import br.com.validation.request.validationRequest.exception.NotFoundQrCodeException
 import br.com.validation.request.validationRequest.port.QrCodePort
 import br.com.validation.request.validationRequest.port.QrCodeRepository
-import br.com.validation.request.validationRequest.util.generateTransactionId
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 
 @Component
 class QrCodeRepositoryAdapter(
@@ -25,13 +25,8 @@ class QrCodeRepositoryAdapter(
         }
     }
 
-    override fun save(amount: Double): QrCode {
+    override fun save(qrCode: QrCode): QrCode {
         try {
-            val qrCode = QrCode(
-                transactionId = generateTransactionId(),
-                amount = amount,
-                createdAt = LocalDateTime.now())
-
             val entity = qrCode.toEntity(qrCode.transactionId)
 
             val savedEntity = qrCodeRepository.save(entity)

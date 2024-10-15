@@ -9,7 +9,7 @@ class CreateQrCodeUseCase(
     private val qrCodePort: QrCodePort
 ) {
 
-    fun execute(amount: Double): QrCode {
-        return qrCodePort.save(amount)
+    fun execute(qrCode: QrCode): QrCode {
+        return qrCodePort.save(qrCode)
     }
 }

@@ -6,5 +6,7 @@ data class QrCodeResponse (
 
     val transactionId: String,
     val amount: Double,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val description: String?,
+    val expirationDate: LocalDateTime?
 )
