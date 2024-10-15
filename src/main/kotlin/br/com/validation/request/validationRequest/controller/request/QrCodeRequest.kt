@@ -1,5 +1,6 @@
 package br.com.validation.request.validationRequest.controller.request
 
+import br.com.validation.request.validationRequest.util.annotation.ValidExpirationDate
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Digits
 import jakarta.validation.constraints.Size
@@ -14,6 +15,6 @@ data class QrCodeRequest(
     @field:Size(max = 255, message = "Description must be up to 255 characters")
     val description: String? = null,
 
-    //TODO: Como validar se o que foi passado, foi uma data valida?
+    @field:ValidExpirationDate
     val expirationDate: LocalDateTime? = null
 )
