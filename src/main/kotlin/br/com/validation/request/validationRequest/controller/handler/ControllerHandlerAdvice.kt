@@ -22,26 +22,29 @@ class ControllerHandlerAdvice {
         val errorResponse = ErrorResponse(
             status = httpStatusError.value(),
             message = exception.cause?.message ?: "Not Found",
-            errors = mapOf("error" to "Not Found"), // TODO: Ajustar
+            errors = listOf(),
             path = request.requestURI
         )
 
         return ResponseEntity.status(httpStatusError).body(errorResponse)
     }
 
-    // TODO: Ajustar
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationExceptions(
+    fun handleMethodArgumentNotValidException(
         exception: MethodArgumentNotValidException,
         request: HttpServletRequest
     ): ResponseEntity<ErrorResponse> {
 
         val httpStatusError = HttpStatus.BAD_REQUEST
 
+        val fieldErrors = exception.bindingResult.fieldErrors.map {
+            FieldError(it.field, it.defaultMessage ?: "Invalid value")
+        }
+
         val errorResponse = ErrorResponse(
             status = httpStatusError.value(),
-            message = "Validation Error",
-            errors = exception.bindingResult.fieldErrors.associate { it.field to it.defaultMessage },
+            message = "Bad Request",
+            errors = fieldErrors,
             path = request.requestURI
         )
 
