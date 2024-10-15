@@ -4,35 +4,40 @@
 O `ValidationRequest` é um projeto focado em validação de requisições. Ele utiliza arquitetura hexagonal para garantir uma separação clara entre as camadas de aplicação.
 
 ## Funcionalidades
- - Criar, atualizar e excluir QR Codes
- - Validação de campos obrigatórios em requisições
- - Integração com banco de dados para persistência de QR Codes
- - Consulta e listagem de transações via API
+ - Criar QR Code
+
+ - Consultar QR Code 
+
+ - Atualizar QR Code 
+
+ - Excluir QR Code
 
 ## Tecnologias Utilizadas
  - Kotlin
 - Spring Boot
 - Hibernate/JPA
-- H2 Database (ou outro banco de dados)
+- H2 Database
 - Maven
-- JUnit para testes unitários
+- JUnit
 
 ## Estrutura do Projeto
-`src/
-├─ adapter/
-├─ configuration/
-├─ controller/
-|  ├─ handler/
-|  ├─ mapper/
-|  ├─ request/
-|  └─ response/
-├─ domain/
-|  └─ enums/
-├─ entity/
-├─ exception/
-├─ port/
-├─ usecase/
-|  └─ mapper/`
+```
+src/
+├── adapter/
+├── configuration/
+├── controller/
+│   ├── handler/
+│   ├── mapper/
+│   ├── request/
+│   └── response/
+├── domain/
+│   └── enums/
+├── entity/
+├── exception/
+├── port/
+├── usecase/
+│   └── mapper/
+```
 
 ### Explicação
 
