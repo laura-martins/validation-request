@@ -7,6 +7,8 @@ import br.com.validation.request.validationRequest.controller.response.QrCodeRes
 import br.com.validation.request.validationRequest.usecase.CreateQrCodeUseCase
 import br.com.validation.request.validationRequest.usecase.FindQrCodeUseCase
 import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -16,9 +18,9 @@ class QrCodeController (
     private val findQrCodeUseCase: FindQrCodeUseCase,
     private val createQrCodeUseCase: CreateQrCodeUseCase
 ) {
-
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = ["/{transactionId}"])
-    fun consultaPorId(@PathVariable transactionId: String): ResponseEntity<QrCodeResponse> {
+    fun consultaPorId(@PathVariable(required = true) @NotBlank transactionId: String): ResponseEntity<QrCodeResponse> {
         val qrCode = findQrCodeUseCase.execute(transactionId)
         val response = qrCode.toQrCodeResponse()
         return ResponseEntity.ok(response)
