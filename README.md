@@ -1,26 +1,26 @@
-# Projeto ValidationRequest
+# ValidationRequest Project
 
-## Visão Geral
-O `ValidationRequest` é um projeto focado em validação de requisições. Ele utiliza arquitetura hexagonal para garantir uma separação clara entre as camadas de aplicação.
+## Overview
+`ValidationRequest` is a project focused on request validation. It uses a hexagonal architecture to ensure a clear separation between application layers.
 
-## Funcionalidades
- - Criar QR Code
+## Features
+ - Create QR Code
 
- - Consultar QR Code 
+ - Retrieve QR Code 
 
- - Atualizar QR Code 
+ - Update QR Code 
 
- - Excluir QR Code
+ - Delete QR Code
 
-## Tecnologias Utilizadas
+## Technologies Used
  - Kotlin
-- Spring Boot
-- Hibernate/JPA
-- H2 Database
-- Maven
-- JUnit
+ - Spring Boot
+ - Hibernate/JPA
+ - H2 Database
+ - Maven
+ - JUnit
 
-## Estrutura do Projeto
+## Project Structure
 ```
 src/
 ├── adapter/
@@ -39,25 +39,25 @@ src/
 │   └── mapper/
 ```
 
-### Explicação
+### Explanation
 
-- **adapter/**: Contém os adaptadores para serviços externos (Banco de dados, APIs, filas, cache, etc.).
-- **configuration/**: Configurações do framework (Spring, por exemplo) e outras configurações gerais.
-- **controller/**: Ponto de entrada da aplicação, onde são recebidas as requisições via API.
-    - **handler/**: Responsável por lidar com exceções específicas.
-    - **mapper/**: Realiza conversão entre objetos de domínio e DTOs.
-    - **request/**: Modelos de requisição para a API.
-    - **response/**: Modelos de resposta para a API.
-- **domain/**: Contém as regras de negócio e os objetos principais do domínio.
-    - **enums/**: Enumerações relacionadas ao domínio.
-- **entity/**: Representa as entidades persistidas no banco de dados.
-- **exception/**: Contém exceções relacionadas ao domínio.
+- **adapter/**: Contains adapters for external services (Database, APIs, queues, cache, etc.).
+- **configuration/**: Framework configurations (Spring, for example) and other general settings.
+- **controller/**: Application entry point, where API requests are received.
+    - **handler/**: Responsible for handling specific exceptions.
+    - **mapper/**: Converts between domain objects and DTOs.
+    - **request/**: Request models for the API.
+    - **response/**: Response models for the API.
+- **domain/**: Contains business rules and main domain objects.
+    - **enums/**: Enumerations related to the domain.
+- **entity/**: Represents entities persisted in the database.
+- **exception/**: Contains domain-related exceptions.
 - **port/**: Interfaces.
-- **usecase/**: Casos de uso que contêm a lógica de negócios.
-  - **mapper/**: Converte entre objetos de domínio e entidades/DTOs.
+- **usecase/**: Use cases that contain business logic.
+  - **mapper/**: Converts between domain objects and entities/DTOs.
 
-Esse formato organizado facilita a compreensão dos desenvolvedores e colaboradores sobre a estrutura e responsabilidade de cada camada no projeto.
+This organized format helps developers and collaborators understand the structure and responsibility of each layer in the project.
 
-## Como Executar o Projeto
-1. Instale as dependências do projeto usando o Maven: `mvn clean install`
-2. Execute a aplicação: `mvn spring-boot:run`
+## How to Run the Project
+1. Install project dependencies using Maven: `mvn clean install`
+2. Run the application: `mvn spring-boot:run`
