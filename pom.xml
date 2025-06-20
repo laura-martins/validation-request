@@ -78,9 +78,28 @@
         </dependency>
 
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest</artifactId>
+            <version>1.7.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>0.15</version>
         </dependency>
 
         <!-- OpenAPI -->
@@ -118,6 +137,27 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.7.3</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <jvmArgs>
+                        <jvmArg>-Xmx2G</jvmArg>
+                        <jvmArg>-Xms512M</jvmArg>
+                    </jvmArgs>
+                    <targetClasses>
+                        <param>br.com.validation.request.validationRequest.controller.*</param>
+                        <param>br.com.validation.request.validationRequest.usecase.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>br.com.validation.request.validationRequest.controller.*</param>
+                        <param>br.com.validation.request.validationRequest.usecase.*</param>
+                    </targetTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
