@@ -9,11 +9,11 @@ data class QrCode (
     val amount: Double,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val description: String?,
-    val expirationDate: LocalDateTime?
+    val expirationDate: LocalDateTime? = createdAt.plusMinutes(5)
 ) {
 
     companion object {
-        fun generateTransactionId(): String {
+        private fun generateTransactionId(): String {
             return "OQRC" + UUID.randomUUID().toString().replace("-", "").take(30)
         }
     }
