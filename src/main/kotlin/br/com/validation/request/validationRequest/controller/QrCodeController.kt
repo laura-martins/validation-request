@@ -26,6 +26,7 @@ class QrCodeController (
         return ResponseEntity.ok(response)
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping
     fun createQrCode(@Valid @RequestBody qrCodeRequest: QrCodeRequest): ResponseEntity<QrCodeResponse> {
         val qrCode = qrCodeRequest.toQrCode()
