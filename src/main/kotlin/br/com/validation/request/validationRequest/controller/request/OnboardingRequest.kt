@@ -44,7 +44,15 @@ data class OnboardingRequest (
         val fantasyName: String,
 
         @field:[Min(1)]
-        val incomeInvoicing: Int
+        val incomeInvoicing: Int,
+
+        @field:[NotNull Size(min = 1, max = 1) Valid]
+        val addresses: List<CustomerAddress>,
+    )
+
+    data class CustomerAddress(
+        @field:[NotBlank Pattern(regexp = "^CNPJ_CARD$")]
+        val purpose: String
     )
 
     companion object {
@@ -63,7 +71,12 @@ data class OnboardingRequest (
                     documentNumber = this.customer.documentNumber.lowercase(),
                     name = this.customer.name.trimAndReduceWhitespaces().uppercase(),
                     fantasyName = this.customer.fantasyName.trimAndReduceWhitespaces().uppercase(),
-                    incomeInvoicing = this.customer.incomeInvoicing
+                    incomeInvoicing = this.customer.incomeInvoicing,
+                    addresses = this.customer.addresses.map { address ->
+                        Onboarding.CustomerAddress(
+                            purpose = address.purpose.uppercase()
+                        )
+                    }
                 )
             )
         }

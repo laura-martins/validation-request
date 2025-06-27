@@ -1,5 +1,8 @@
 package br.com.validation.request.validationRequest.domain
 
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
+
 data class Onboarding (
 
     val correlationId: String,
@@ -16,6 +19,11 @@ data class Onboarding (
         val documentNumber: String,
         val name: String,
         val fantasyName: String,
-        val incomeInvoicing: Int
+        val incomeInvoicing: Int,
+        val addresses: List<CustomerAddress>,
+    )
+
+    data class CustomerAddress(
+        val purpose: String
     )
 }
