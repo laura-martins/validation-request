@@ -51,8 +51,8 @@ data class OnboardingRequest (
     )
 
     data class CustomerAddress(
-        @field:[NotBlank Pattern(regexp = "^CNPJ_CARD$")]
-        val purpose: String
+        @field:[NotBlank Pattern(regexp = "(?i)^CNPJ_CARD$")]
+        val purpose: String,
     )
 
     companion object {
