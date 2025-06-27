@@ -5,7 +5,7 @@ data class Onboarding (
     val correlationId: String,
     val automationOrangePartnerId: String,
     val integrationOrangePartnerId: String?,
-    val destinationAccoutns: List<DestinationAccount>?,
+    val destinationAccounts: List<DestinationAccount>?,
     val customer: Customer
 ) {
     data class DestinationAccount(

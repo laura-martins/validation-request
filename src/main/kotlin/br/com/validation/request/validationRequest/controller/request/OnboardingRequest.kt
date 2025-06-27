@@ -20,7 +20,7 @@ data class OnboardingRequest (
     val integrationOrangePartnerId: String?,
 
     @field:[Size(min = 1, max = 1) Valid]
-    val destinationAccoutns: List<DestinationAccount>?,
+    val destinationAccounts: List<DestinationAccount>?,
 
     @field:[NotNull Valid]
     val customer: Customer
@@ -53,7 +53,7 @@ data class OnboardingRequest (
                 correlationId = this.correlationId.lowercase(),
                 automationOrangePartnerId = this.automationOrangePartnerId.lowercase(),
                 integrationOrangePartnerId = this.integrationOrangePartnerId?.lowercase(),
-                destinationAccoutns = this.destinationAccoutns?.map {
+                destinationAccounts = this.destinationAccounts?.map {
                     Onboarding.DestinationAccount(
                         key = it.key.removeAllWhitespaces().lowercase(),
                         percent = it.percent
