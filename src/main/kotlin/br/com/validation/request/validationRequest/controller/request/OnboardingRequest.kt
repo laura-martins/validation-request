@@ -1,8 +1,9 @@
 package br.com.validation.request.validationRequest.controller.request
 
+import br.com.validation.request.validationRequest.controller.request.annotation.ValidPixKey
 import br.com.validation.request.validationRequest.controller.request.validator.PatternRegex
-import br.com.validation.request.validationRequest.controller.request.validator.normalizeAndRemoveAllWhitespaces
-import br.com.validation.request.validationRequest.controller.request.validator.normalizeAndTrimWhitespaces
+import br.com.validation.request.validationRequest.controller.request.validator.removeAllWhitespaces
+import br.com.validation.request.validationRequest.controller.request.validator.trimAndReduceWhitespaces
 import br.com.validation.request.validationRequest.domain.Onboarding
 import jakarta.validation.Valid
 import jakarta.validation.constraints.*
@@ -10,7 +11,13 @@ import jakarta.validation.constraints.*
 data class OnboardingRequest (
 
     @field:[NotBlank Pattern(regexp = PatternRegex.UUID_VALID)]
-    val customerId: String,
+    val correlationId: String,
+
+    @field:[NotBlank Pattern(regexp = PatternRegex.UUID_VALID)]
+    val automationOrangePartnerId: String,
+
+    @field:[Pattern(regexp = PatternRegex.UUID_VALID)]
+    val integrationOrangePartnerId: String?,
 
     @field:[Size(min = 1, max = 1) Valid]
     val destinationAccoutns: List<DestinationAccount>?,
@@ -19,7 +26,7 @@ data class OnboardingRequest (
     val customer: Customer
 ) {
     data class DestinationAccount(
-        @field:[NotBlank]
+        @field:[NotBlank Size(max = 77) ValidPixKey]
         val key: String,
 
         @field:[NotNull Min(100) Max(100)]
@@ -30,26 +37,32 @@ data class OnboardingRequest (
         @field:[NotBlank Pattern(regexp = PatternRegex.CNPJ_VALID)]
         val documentNumber: String,
 
-        @field:[NotBlank Size(min = 2, max = 60)]
+        @field:[NotBlank Size(min = 3, max = 200) Pattern(regexp = PatternRegex.CUSTOMER_NAME_VALID)]
         val name: String,
 
-        @field:[NotNull Min(1)]
+        @field:[NotNull Size(min = 3, max = 60) Pattern(regexp = PatternRegex.FANTASY_NAME_VALID)]
+        val fantasyName: String,
+
+        @field:[Min(1)]
         val incomeInvoicing: Int
     )
 
     companion object {
         fun OnboardingRequest.convertToOnboarding(): Onboarding {
             return Onboarding(
-                customerId = this.customerId.normalizeAndTrimWhitespaces(),
+                correlationId = this.correlationId.lowercase(),
+                automationOrangePartnerId = this.automationOrangePartnerId.lowercase(),
+                integrationOrangePartnerId = this.integrationOrangePartnerId?.lowercase(),
                 destinationAccoutns = this.destinationAccoutns?.map {
                     Onboarding.DestinationAccount(
-                        key = it.key.normalizeAndRemoveAllWhitespaces(),
+                        key = it.key.removeAllWhitespaces().lowercase(),
                         percent = it.percent
                     )
                 },
                 customer = Onboarding.Customer(
-                    documentNumber = this.customer.documentNumber.normalizeAndRemoveAllWhitespaces(),
-                    name = this.customer.name.normalizeAndTrimWhitespaces(),
+                    documentNumber = this.customer.documentNumber.lowercase(),
+                    name = this.customer.name.trimAndReduceWhitespaces().uppercase(),
+                    fantasyName = this.customer.fantasyName.trimAndReduceWhitespaces().uppercase(),
                     incomeInvoicing = this.customer.incomeInvoicing
                 )
             )

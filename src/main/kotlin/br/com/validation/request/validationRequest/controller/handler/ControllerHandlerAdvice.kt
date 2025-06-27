@@ -2,7 +2,7 @@ package br.com.validation.request.validationRequest.controller.handler
 
 import br.com.validation.request.validationRequest.exception.NotFoundQrCodeException
 import jakarta.servlet.http.HttpServletRequest
-import jakarta.validation.UnexpectedTypeException
+import jakarta.validation.ConstraintViolationException
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
@@ -35,6 +35,8 @@ class ControllerHandlerAdvice(
             path = request.requestURI
         )
 
+        print("Error occurred: ${errorResponse.message}, Path: ${errorResponse.path}, Time: ${LocalDateTime.now()}, Exception: $exception")
+
         return ResponseEntity.status(httpStatusError).body(errorResponse)
     }
 
@@ -49,10 +51,32 @@ class ControllerHandlerAdvice(
 
         val errorResponse = ErrorResponse(
             status = httpStatusError.value(),
-            errors = getDetailsBeanValidationErrors(bindingResult),
+            errors = getBindingResultErrors(bindingResult),
             message = "We cannot fulfill your request due to invalid or incomplete data",
             path = request.requestURI
         )
+
+        print("Error occurred: ${errorResponse.message}, Path: ${errorResponse.path}, Time: ${LocalDateTime.now()}, Exception: $exception")
+
+        return ResponseEntity.status(httpStatusError).body(errorResponse)
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun handleConstraintViolationException(
+        exception: ConstraintViolationException,
+        request: HttpServletRequest
+    ): ResponseEntity<ErrorResponse> {
+
+        val httpStatusError = HttpStatus.BAD_REQUEST
+
+        val errorResponse = ErrorResponse(
+            status = httpStatusError.value(),
+            errors = getConstraintViolationErrors(exception),
+            message = "We cannot fulfill your request due to invalid or incomplete data",
+            path = request.requestURI
+        )
+
+        print("Error occurred: ${errorResponse.message}, Path: ${errorResponse.path}, Time: ${LocalDateTime.now()}, Exception: $exception")
 
         return ResponseEntity.status(httpStatusError).body(errorResponse)
     }
@@ -60,7 +84,7 @@ class ControllerHandlerAdvice(
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleHttpMessageNotReadableException(
         exception: HttpMessageNotReadableException,
-        request: HttpServletRequest,
+        request: HttpServletRequest
     ): ResponseEntity<ErrorResponse> {
 
         val httpStatusError = HttpStatus.BAD_REQUEST
@@ -72,16 +96,29 @@ class ControllerHandlerAdvice(
             path = request.requestURI
         )
 
+        print("Error occurred: ${errorResponse.message}, Path: ${errorResponse.path}, Time: ${LocalDateTime.now()}, Exception: ${exception}")
+
         return ResponseEntity.status(httpStatusError).body(errorResponse)
     }
 
-    private final fun getDetailsBeanValidationErrors(
+    private final fun getBindingResultErrors(
         bindingResult: BindingResult
     ): MutableList<FieldErrorDto> {
         return bindingResult.allErrors.map { error ->
             val message = messageSource.getMessage(error, LocaleContextHolder.getLocale())
             val name = if (error is FieldError) error.field else error.objectName
             val valueField = if (error is FieldError) error.rejectedValue.toString() else ""
+            FieldErrorDto(field = name, message = message, value = valueField)
+        }.toMutableList()
+    }
+
+    private final fun getConstraintViolationErrors(
+        constraintViolationException: ConstraintViolationException
+    ): MutableList<FieldErrorDto> {
+        return constraintViolationException.constraintViolations.map { violation ->
+            val message = violation.message
+            val name = violation.propertyPath.toString()
+            val valueField = violation.invalidValue?.toString() ?: ""
             FieldErrorDto(field = name, message = message, value = valueField)
         }.toMutableList()
     }
