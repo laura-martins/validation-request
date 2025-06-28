@@ -55,7 +55,10 @@ data class OnboardingRequest (
         val purpose: String,
 
         @field:[NotBlank Size(max = 150) Pattern(regexp = PatternRegex.STREET_ADDRESS_VALID)]
-        val streetAddress: String
+        val streetAddress: String,
+
+        @field:[NotBlank Size(min = 1, max = 6) Pattern(regexp = PatternRegex.NUMBER_ADDRESS_VALID)]
+        val number: String,
     )
 
     companion object {
@@ -78,7 +81,8 @@ data class OnboardingRequest (
                     addresses = this.customer.addresses.map { address ->
                         Onboarding.CustomerAddress(
                             purpose = address.purpose.uppercase(),
-                            streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase()
+                            streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase(),
+                            number = address.number.trimAndReduceWhitespaces().lowercase()
                         )
                     }
                 )
