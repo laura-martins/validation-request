@@ -19,7 +19,6 @@ class PatternRegexTest {
         )
 
         val invalidUuids = listOf(
-            null,                                           // explicitly include null
             "",                                             // empty string
             "   ",                                          // apenas espaços
             "123e4567e89b12d3a456426614174000",             // missing dashes
@@ -37,7 +36,7 @@ class PatternRegexTest {
         }
 
         invalidUuids.forEach { uuid ->
-            assertFalse(uuid?.let { pattern.matcher(it).matches() } ?: false, "Should not match invalid UUID: $uuid")
+            assertFalse(uuid.let { pattern.matcher(it).matches() } ?: false, "Should not match invalid UUID: $uuid")
         }
     }
 
@@ -155,18 +154,64 @@ class PatternRegexTest {
             assertFalse(pattern.matcher(it).matches(), "Should not match invalid fantasy name: '$it'")
         }
     }
-//
-//    @Test
-//    fun `should validate STREET_ADDRESS regex with valid and invalid values`() {
-//        val pattern = Pattern.compile(PatternRegex.STREET_ADDRESS_VALID)
-//
-//        // Valid street addresses
-//        assertTrue(pattern.matcher("123 Main St").matches())
-//        assertTrue(pattern.matcher("Rua das Flores, 45").matches())
-//
-//        // Invalid street addresses
-//        assertFalse(pattern.matcher("123456").matches()) // Only numbers
-//        assertFalse(pattern.matcher("aaaaa").matches()) // Repeated characters
-//        assertFalse(pattern.matcher("").matches()) // Empty string
-//    }
+
+    @Test
+    fun `should validate STREET_ADDRESS regex with valid and invalid values`() {
+        val pattern = Pattern.compile(PatternRegex.STREET_ADDRESS_VALID)
+
+        val validFantasyNames = listOf(
+            "ENDEREÇO EM MAIÚSCULA, 789",
+            "endereço em minúscula, 101",
+            "Rua das Flores",
+            "Rua A",
+            "Rua 1",
+            "A",
+            "Avenida João Cañizo Ñunes",
+            "Rua São Tomás de Aquino",
+            "Travessa do Comércio",
+            "Rua Capitão Luís",
+            "Rua Ló da Silva",
+            "Rua Lúcia",
+            "Rua Fêlix",
+            "Jardim Pôr-do-Sol",
+            "Avenida Flûor de Lis",
+            "Rua Frei Inácio d'Ávila",
+            "Jardim são Luis",
+            "Rua das curaçaus",
+            "Rua palmeira àgua",
+            "Praça da Sé, s/n",
+            "Alameda Santos - Sala 101",
+            "Estrada Municipal, Km 15",
+            "Rua XV de Novembro, 88",
+            "Parque das Nações (bloco 3)",
+            "Rua 1º de Maio",
+            "3ª Avenida"
+        )
+
+        val invalidFantasyNames = listOf(
+            "123456",
+            "123 456",
+            "Av. Paulista, 1000",
+            "# Rua",
+            "laura amora ЗБИОЧ",
+            "aaaaa",
+            "áÁááÁ",
+            "!!! !!!",
+            "!!!!!!!",
+            "Rua joao !@#$%^&*()",
+            "Rua joao Зafbбcб, 123",
+            "Av. barros ♥ ♦ € ∞, 456",
+            "Rua São João ЗБИОЧ",
+            "",
+            "     ",
+        )
+
+        validFantasyNames.forEach {
+            assertTrue(pattern.matcher(it).matches(), "Should match valid street address: '$it'")
+        }
+
+        invalidFantasyNames.forEach {
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid street address: '$it'")
+        }
+    }
 }
