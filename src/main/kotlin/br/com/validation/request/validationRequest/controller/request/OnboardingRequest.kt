@@ -40,7 +40,7 @@ data class OnboardingRequest (
         @field:[NotBlank Size(min = 3, max = 200) Pattern(regexp = PatternRegex.CUSTOMER_NAME_VALID)]
         val name: String,
 
-        @field:[NotNull Size(min = 3, max = 60) Pattern(regexp = PatternRegex.FANTASY_NAME_VALID)]
+        @field:[NotNull Size(min = 2, max = 60) Pattern(regexp = PatternRegex.FANTASY_NAME_VALID)]
         val fantasyName: String,
 
         @field:[Min(1)]
@@ -53,6 +53,9 @@ data class OnboardingRequest (
     data class CustomerAddress(
         @field:[NotBlank Pattern(regexp = "(?i)^CNPJ_CARD$")]
         val purpose: String,
+
+        @field:[NotBlank Size(max = 150) Pattern(regexp = PatternRegex.STREET_ADDRESS_VALID)]
+        val streetAddress: String
     )
 
     companion object {
@@ -74,7 +77,8 @@ data class OnboardingRequest (
                     incomeInvoicing = this.customer.incomeInvoicing,
                     addresses = this.customer.addresses.map { address ->
                         Onboarding.CustomerAddress(
-                            purpose = address.purpose.uppercase()
+                            purpose = address.purpose.uppercase(),
+                            streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase()
                         )
                     }
                 )

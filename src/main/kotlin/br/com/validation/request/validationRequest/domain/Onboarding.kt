@@ -25,5 +25,6 @@ data class Onboarding (
 
     data class CustomerAddress(
         val purpose: String,
+        val streetAddress: String
     )
 }
