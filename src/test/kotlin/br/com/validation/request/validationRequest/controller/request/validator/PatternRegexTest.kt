@@ -207,7 +207,7 @@ class PatternRegexTest {
         val invalidFantasyNames = listOf(
             "123456",
             "123 456",
-            "A",
+            "-B",
             "1",
             "Av. Paulista, 1000",
             "# Rua paulo",
@@ -233,6 +233,60 @@ class PatternRegexTest {
             "Rua joao Зafbбcб, 123",
             "Av. barros ♥ ♦ € ∞, 456",
             "Rua São João ЗБИОЧ"
+        )
+
+        validFantasyNames.forEach {
+            assertTrue(pattern.matcher(it).matches(), "Should match valid street address: '$it'")
+        }
+
+        invalidFantasyNames.forEach {
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid street address: '$it'")
+        }
+    }
+
+    @Test
+    fun `should validate NUMBER_ADDRESS regex with valid and invalid values`() {
+        val pattern = Pattern.compile(PatternRegex.NUMBER_ADDRESS_VALID)
+
+        val validFantasyNames = listOf(
+            "SN",
+            "sn",
+            "123",
+            "0",
+            "1",
+            "9999",
+            "2AA",
+            "456A",
+            "A123",
+            "KM 15",
+            "123-A",
+            "12/45",
+            "123,5",
+            "nº 101",
+            "223ª"
+        )
+
+        val invalidFantasyNames = listOf(
+            "letra",
+            "LETRA",
+            "-B",
+            "4AAA",
+            "AAA3",
+            "5ccc",
+            "ccc6",
+            "S/N",
+            "s/n",
+            " 2A",
+            "-2A",
+            "/2A",
+            ",2A",
+            "ª2A",
+            "º2A",
+            "L4!@#",
+            "L3áéíóú",
+            "L3ÁÉÍÓÚ",
+            "L2АБВГД",
+            "L1♥♦€∞"
         )
 
         validFantasyNames.forEach {
