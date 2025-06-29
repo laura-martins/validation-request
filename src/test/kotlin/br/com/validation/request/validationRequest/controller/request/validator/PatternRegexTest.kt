@@ -290,11 +290,11 @@ class PatternRegexTest {
         )
 
         validFantasyNames.forEach {
-            assertTrue(pattern.matcher(it).matches(), "Should match valid street address: '$it'")
+            assertTrue(pattern.matcher(it).matches(), "Should match valid number address: '$it'")
         }
 
         invalidFantasyNames.forEach {
-            assertFalse(pattern.matcher(it).matches(), "Should not match invalid street address: '$it'")
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid number address: '$it'")
         }
     }
 
@@ -303,52 +303,86 @@ class PatternRegexTest {
         val pattern = Pattern.compile(PatternRegex.COMPLEMENTARY_ADDRESS)
 
         val validFantasyNames = listOf(
-            "SN",
-            "sn",
-            "123",
-            "0",
-            "1",
-            "9999",
-            "2AA",
-            "456A",
-            "A123",
-            "KM 15",
-            "123-A",
-            "12/45",
-            "123,5",
-            "nº 101",
-            "223ª"
+            "APTO 101",
+            "Apto 101",
+            "Bloco A",
+            "Bloco 1",
+            "Fundos",
+            "Casa dos Fundos",
+            "Studio compacto",
+            "Kitnet mobiliada",
+            "A",
+            "Ap",
+            "áéíóúâêîôûãõçñà",
+            "ÁÉÍÓÚÂÊÎÔÛÃÕÇÑÀ",
+            "Casa à direita",
+            "Chácara urbana",
+            "Prédio Azul",
+            "Térreo",
+            "Edifício moderno",
+            "Módulo C",
+            "Condomínio Lúcio Costa",
+            "Entrada Ângela",
+            "Vila Ênio Silva",
+            "Travessa Îndio Poti",
+            "Lote Ômega 7",
+            "Edifício Jûlio Ribeiro",
+            "Praça São João",
+            "Residencial Pinhõ",
+            "Peña Nieto",
+            "Apt'o 15",
+            "Casa-2",
+            "Bloco/Torre A",
+            "Sala, 301",
+            "Casa (fundos)",
+            "1ª casa",
+            "Andar 5º",
+            "Ap 15º andar",
+            "5º Casa",
+            "Loja nº 10",
+            "A1",
+            "B2",
+            "1A",
+            "2B",
+            "3º",
+            "4ª"
         )
 
         val invalidFantasyNames = listOf(
-            "letra",
-            "LETRA",
+            "1234567",
+            "0",
+            "999",
+            "123 456",
             "-B",
-            "4AAA",
-            "AAA3",
-            "5ccc",
-            "ccc6",
-            "S/N",
-            "s/n",
-            " 2A",
-            "-2A",
-            "/2A",
-            ",2A",
-            "ª2A",
-            "º2A",
-            "L4!@#",
-            "L3áéíóú",
-            "L3ÁÉÍÓÚ",
-            "L2АБВГД",
-            "L1♥♦€∞"
+            "Ed. Central",
+            " Apto 101",
+            "-Bloco A",
+            "/Casa 2",
+            ",Sala 301",
+            "(Fundos)",
+            "'Andar 5",
+            "ºSala 1",
+            "ªCasa 2",
+            "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
+            "áÁááÁ",
+            "!!! !!!",
+            "!!!!!!!",
+            "casa !@#$%^&*()",
+            "casa Зafbбcб",
+            "casa ♥ ♦ € ∞, 456",
+            "casa ЗБИОЧ"
         )
 
         validFantasyNames.forEach {
-            assertTrue(pattern.matcher(it).matches(), "Should match valid street address: '$it'")
+            assertTrue(pattern.matcher(it).matches(), "Should match valid complementary address: '$it'")
         }
 
         invalidFantasyNames.forEach {
-            assertFalse(pattern.matcher(it).matches(), "Should not match invalid street address: '$it'")
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid complementary address: '$it'")
         }
     }
 }
