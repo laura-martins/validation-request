@@ -82,7 +82,7 @@ data class OnboardingRequest (
                         Onboarding.CustomerAddress(
                             purpose = address.purpose.uppercase(),
                             streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase(),
-                            number = address.number.trimAndReduceWhitespaces().lowercase()
+                            number = address.number.trimAndReduceWhitespaces().uppercase()
                         )
                     }
                 )
