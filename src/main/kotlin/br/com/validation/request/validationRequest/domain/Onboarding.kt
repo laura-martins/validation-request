@@ -27,5 +27,6 @@ data class Onboarding (
         val purpose: String,
         val streetAddress: String,
         val number: String,
+        val complementaryAddress: String
     )
 }

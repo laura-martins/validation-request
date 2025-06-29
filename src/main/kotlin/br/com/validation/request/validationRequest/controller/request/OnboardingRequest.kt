@@ -59,6 +59,9 @@ data class OnboardingRequest (
 
         @field:[NotBlank Size(min = 1, max = 6) Pattern(regexp = PatternRegex.NUMBER_ADDRESS_VALID)]
         val number: String,
+
+        @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.COMPLEMENTARY_ADDRESS)]
+        val complementaryAddress: String
     )
 
     companion object {
@@ -82,7 +85,8 @@ data class OnboardingRequest (
                         Onboarding.CustomerAddress(
                             purpose = address.purpose.uppercase(),
                             streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase(),
-                            number = address.number.trimAndReduceWhitespaces().uppercase()
+                            number = address.number.trimAndReduceWhitespaces().uppercase(),
+                            complementaryAddress = address.complementaryAddress.trimAndReduceWhitespaces().lowercase()
                         )
                     }
                 )
