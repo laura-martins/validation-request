@@ -385,4 +385,92 @@ class PatternRegexTest {
             assertFalse(pattern.matcher(it).matches(), "Should not match invalid complementary address: '$it'")
         }
     }
+
+    @Test
+    fun `should validate NEIGHBORHOOD_VALID regex with valid and invalid values`() {
+        val pattern = Pattern.compile(PatternRegex.NEIGHBORHOOD_VALID)
+
+        val validFantasyNames = listOf(
+            "APTO 101",
+            "Apto 101",
+            "Bloco A",
+            "Bloco 1",
+            "Fundos",
+            "Casa dos Fundos",
+            "Studio compacto",
+            "Kitnet mobiliada",
+            "A",
+            "Ap",
+            "áéíóúâêîôûãõçñà",
+            "ÁÉÍÓÚÂÊÎÔÛÃÕÇÑÀ",
+            "Casa à direita",
+            "Chácara urbana",
+            "Prédio Azul",
+            "Térreo",
+            "Edifício moderno",
+            "Módulo C",
+            "Condomínio Lúcio Costa",
+            "Entrada Ângela",
+            "Vila Ênio Silva",
+            "Travessa Îndio Poti",
+            "Lote Ômega 7",
+            "Edifício Jûlio Ribeiro",
+            "Praça São João",
+            "Residencial Pinhõ",
+            "Peña Nieto",
+            "Apt'o 15",
+            "Casa-2",
+            "Bloco/Torre A",
+            "Sala, 301",
+            "Casa (fundos)",
+            "1ª casa",
+            "Andar 5º",
+            "Ap 15º andar",
+            "5º Casa",
+            "Loja nº 10",
+            "A1",
+            "B2",
+            "1A",
+            "2B",
+            "3º",
+            "4ª"
+        )
+
+        val invalidFantasyNames = listOf(
+            "1234567",
+            "0",
+            "999",
+            "123 456",
+            "-B",
+            "Ed. Central",
+            " Apto 101",
+            "-Bloco A",
+            "/Casa 2",
+            ",Sala 301",
+            "(Fundos)",
+            "'Andar 5",
+            "ºSala 1",
+            "ªCasa 2",
+            "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
+            "áÁááÁ",
+            "!!! !!!",
+            "!!!!!!!",
+            "casa !@#$%^&*()",
+            "casa Зafbбcб",
+            "casa ♥ ♦ € ∞, 456",
+            "casa ЗБИОЧ"
+        )
+
+        validFantasyNames.forEach {
+            assertTrue(pattern.matcher(it).matches(), "Should match valid neighborhood: '$it'")
+        }
+
+        invalidFantasyNames.forEach {
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid neighborhood: '$it'")
+        }
+    }
 }

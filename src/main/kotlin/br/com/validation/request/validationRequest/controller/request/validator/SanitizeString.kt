@@ -8,3 +8,9 @@ fun String.trimAndReduceWhitespaces(): String {
 fun String.removeAllWhitespaces(): String {
     return this.replace(Regex("\\s+"), "")
 }
+
+fun String.capitalizeWords(): String {
+    return this.lowercase()
+        .split(" ")
+        .joinToString(" ") { it.replaceFirstChar { c -> c.uppercaseChar()} }
+}

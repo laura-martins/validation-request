@@ -1,8 +1,5 @@
 package br.com.validation.request.validationRequest.domain
 
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.Pattern
-
 data class Onboarding (
 
     val correlationId: String,
@@ -27,6 +24,7 @@ data class Onboarding (
         val purpose: String,
         val streetAddress: String,
         val number: String,
-        val complementaryAddress: String
+        val complementaryAddress: String,
+        val neighborhood: String
     )
 }

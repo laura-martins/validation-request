@@ -2,6 +2,7 @@ package br.com.validation.request.validationRequest.controller.request
 
 import br.com.validation.request.validationRequest.controller.request.annotation.ValidPixKey
 import br.com.validation.request.validationRequest.controller.request.validator.PatternRegex
+import br.com.validation.request.validationRequest.controller.request.validator.capitalizeWords
 import br.com.validation.request.validationRequest.controller.request.validator.removeAllWhitespaces
 import br.com.validation.request.validationRequest.controller.request.validator.trimAndReduceWhitespaces
 import br.com.validation.request.validationRequest.domain.Onboarding
@@ -61,7 +62,10 @@ data class OnboardingRequest (
         val number: String,
 
         @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.COMPLEMENTARY_ADDRESS)]
-        val complementaryAddress: String
+        val complementaryAddress: String,
+
+        @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.NEIGHBORHOOD_VALID)]
+        val neighborhood: String
     )
 
     companion object {
@@ -84,9 +88,10 @@ data class OnboardingRequest (
                     addresses = this.customer.addresses.map { address ->
                         Onboarding.CustomerAddress(
                             purpose = address.purpose.uppercase(),
-                            streetAddress = address.streetAddress.trimAndReduceWhitespaces().lowercase(),
+                            streetAddress = address.streetAddress.trimAndReduceWhitespaces().capitalizeWords(),
                             number = address.number.trimAndReduceWhitespaces().uppercase(),
-                            complementaryAddress = address.complementaryAddress.trimAndReduceWhitespaces().lowercase()
+                            complementaryAddress = address.complementaryAddress.trimAndReduceWhitespaces().capitalizeWords(),
+                            neighborhood = address.neighborhood.trimAndReduceWhitespaces().capitalizeWords()
                         )
                     }
                 )
