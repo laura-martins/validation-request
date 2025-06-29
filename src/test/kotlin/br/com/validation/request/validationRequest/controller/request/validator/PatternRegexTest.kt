@@ -19,16 +19,16 @@ class PatternRegexTest {
         )
 
         val invalidUuids = listOf(
-            "",                                             // empty string
-            "   ",                                          // apenas espaços
-            "123e4567e89b12d3a456426614174000",             // missing dashes
-            "123e4567-e89b-12d3-a456",                      // too short
-            "123e4567-e89b-12d3-a456-426614174000021334",   // too short
-            "g23e4567-e89b-12d3-a456-426614174000",         // invalid hex char 'g'
-            "123e4567--e89b-12d3-a456-426614174000",        // extra dash
-            "123e4567-e89b-12d3-a456-426614174000\n",       // newline
-            " 123e4567-e89b-12d3-a456-426614174000",        // leading space
-            "123e4567-e89b-12d3-a456-426614174000 "         // trailing space
+            "",
+            "   ",
+            "123e4567e89b12d3a456426614174000",
+            "123e4567-e89b-12d3-a456",
+            "123e4567-e89b-12d3-a456-426614174000021334",
+            "g23e4567-e89b-12d3-a456-426614174000",
+            "123e4567--e89b-12d3-a456-426614174000",
+            "123e4567-e89b-12d3-a456-426614174000\n",
+            " 123e4567-e89b-12d3-a456-426614174000",
+            "123e4567-e89b-12d3-a456-426614174000 "
         )
 
         validUuids.forEach { uuid ->
@@ -48,6 +48,8 @@ class PatternRegexTest {
             "Supermarket ABC",
             "Tech Solutions Ltda",
             "Magazine",
+            "áéíóúâêîôûãõçñà",
+            "ÁÉÍÓÚÂÊÎÔÛÃÕÇÑÀ",
             "Señorita Moda",
             "Lógica Contábil",
             "Máxima Soluções",
@@ -66,22 +68,26 @@ class PatternRegexTest {
             "O2 Serviços",
             "@Home Store",
             "#1 Informática",
-            "L’Óreal Brasil",
+            "L'Óreal Brasil",
             "D’Ávila Comércio",
             "DOS RÉIS *****",
             "DOS REIS, CASEIRA E DA MATA 33333"
         )
 
         val invalidNames = listOf(
-            "123456",               // apenas números
-            "aaaaa",                // sequência de 5 letras repetidas
-            "",                     // string vazia
-            "   ",                  // apenas espaços
-            "!!! ???",              // só caracteres especiais, sem letras nem números
-            "!!!!!!!",              // só caracteres especiais
-            "12345 67890",          // duas palavras mas só números
-            "Loja Зafbбcб",         // caracter estrageiro
-            "Loja ♥ ♦ € ∞",         // símbolos especiais
+            "123456",
+            "12345 67890",
+            "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
+            "áÁááÁ",
+            "!!! ???",
+            "!!!!!!!",
+            "Loja Зafbбcб",
+            "Loja ♥ ♦ € ∞",
+            "Mercado São João ЗБИОЧ"
         )
 
         validNames.forEach {
@@ -101,6 +107,8 @@ class PatternRegexTest {
             "Supermarket ABC",
             "Tech Solutions Ltda",
             "Magazine",
+            "áéíóúâêîôûãõçñà",
+            "ÁÉÍÓÚÂÊÎÔÛÃÕÇÑÀ",
             "Señorita Moda",
             "Lógica Contábil",
             "Máxima Soluções",
@@ -125,6 +133,7 @@ class PatternRegexTest {
             "@Home Store",
             "#1 Informática",
             "L'Óreal",
+            "D’Ávila Comércio",
             "Café com Leite~",
             "B3",
             "L!",
@@ -133,17 +142,19 @@ class PatternRegexTest {
         )
 
         val invalidFantasyNames = listOf(
-            "123456",                   // Apenas números
-            "123 456",                  // Duas palavras mas só números (inválido)
-            "aaaaa",                    // Sequência de 5 letras repetidas
-            "áÁááÁ",                    // Sequência de 5 letras repetidas
-            "",                         // String vazia
-            "     ",                    // Espaços apenas
-            "!!! !!!",                  // Só caracteres especiais
-            "!!!!!!!",                  // Só caracteres especiais
-            "Café do Ponto Зafbбcб",    // caracter estrageiro (caracteres cirílicos)
-            "Restaurante ♥ ♦ € ∞",      // símbolos especiais
-            "Mercado São João ЗБИОЧ"    // caracter estrageiro
+            "123456",
+            "123 456",
+            "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
+            "áÁááÁ",
+            "!!! !!!",
+            "!!!!!!!",
+            "Café do Ponto Зafbбcб",
+            "Restaurante ♥ ♦ € ∞",
+            "Mercado São João ЗБИОЧ",
         )
 
         validFantasyNames.forEach {
@@ -165,7 +176,9 @@ class PatternRegexTest {
             "Rua das Flores",
             "Rua A",
             "Rua 1",
-            "A",
+            "Sé",
+            "áéíóúâêîôûãõçñà",
+            "ÁÉÍÓÚÂÊÎÔÛÃÕÇÑÀ",
             "Avenida João Cañizo Ñunes",
             "Rua São Tomás de Aquino",
             "Travessa do Comércio",
@@ -175,7 +188,8 @@ class PatternRegexTest {
             "Rua Fêlix",
             "Jardim Pôr-do-Sol",
             "Avenida Flûor de Lis",
-            "Rua Frei Inácio d'Ávila",
+            "Rua Frei Inácio L'Óreal",
+            "Rua Frei Inácio d’Ávila",
             "Jardim são Luis",
             "Rua das curaçaus",
             "Rua palmeira àgua",
@@ -185,25 +199,40 @@ class PatternRegexTest {
             "Rua XV de Novembro, 88",
             "Parque das Nações (bloco 3)",
             "Rua 1º de Maio",
-            "3ª Avenida"
+            "3ª Avenida",
+            "23 de Maio",
+            "1 de Janeiro"
         )
 
         val invalidFantasyNames = listOf(
             "123456",
             "123 456",
+            "A",
+            "1",
             "Av. Paulista, 1000",
-            "# Rua",
+            "# Rua paulo",
+            " Rua paulo",
+            "' Rua paulo",
+            "’ Rua paulo",
+            "/ Rua paulo",
+            ", Rua paulo",
+            "(Rua) paulo",
+            ")Rua( paulo",
+            "º Rua paulo",
+            "ª Rua paulo",
             "laura amora ЗБИОЧ",
             "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
             "áÁááÁ",
             "!!! !!!",
             "!!!!!!!",
             "Rua joao !@#$%^&*()",
             "Rua joao Зafbбcб, 123",
             "Av. barros ♥ ♦ € ∞, 456",
-            "Rua São João ЗБИОЧ",
-            "",
-            "     ",
+            "Rua São João ЗБИОЧ"
         )
 
         validFantasyNames.forEach {
