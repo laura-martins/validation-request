@@ -65,7 +65,10 @@ data class OnboardingRequest (
         val complementaryAddress: String,
 
         @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.NEIGHBORHOOD_VALID)]
-        val neighborhood: String
+        val neighborhood: String,
+
+        @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.CITY_VALID)]
+        val city: String
     )
 
     companion object {
@@ -91,7 +94,8 @@ data class OnboardingRequest (
                             streetAddress = address.streetAddress.trimAndReduceWhitespaces().capitalizeWords(),
                             number = address.number.trimAndReduceWhitespaces().uppercase(),
                             complementaryAddress = address.complementaryAddress.trimAndReduceWhitespaces().capitalizeWords(),
-                            neighborhood = address.neighborhood.trimAndReduceWhitespaces().capitalizeWords()
+                            neighborhood = address.neighborhood.trimAndReduceWhitespaces().capitalizeWords(),
+                            city = address.city.trimAndReduceWhitespaces().capitalizeWords()
                         )
                     }
                 )

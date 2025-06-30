@@ -457,4 +457,67 @@ class PatternRegexTest {
             assertFalse(pattern.matcher(it).matches(), "Should not match invalid neighborhood: '$it'")
         }
     }
+
+    @Test
+    fun `should validate CITY_VALID regex with valid and invalid values`() {
+        val pattern = Pattern.compile(PatternRegex.CITY_VALID)
+
+        val validFantasyNames = listOf(
+            "Centro",
+            "Vila Nova",
+            "A",
+            "1",
+            "A1",
+            "Sé",
+            "São João",
+            "Barra-da-Tijuca",
+            "D'Ávila",
+            "Sant’Ana",
+            "Centro/Norte",
+            "Setor 1",
+            "1 Zona",
+            "Vila Cenário",
+            "Éden",
+            "Índios",
+            "Óleo",
+            "Úrsula Paulino",
+            "Ângela",
+            "Êxito",
+            "Îlha",
+            "Ômega",
+            "Ûrsula",
+            "Ãnchieta",
+            "São João",
+            "Conceição"
+        )
+
+        val invalidFantasyNames = listOf(
+            "-B",
+            "aaaaa",
+            "AAAAA",
+            "AaAAa",
+            "ááááá",
+            "ÁÁÁÁÁ",
+            "áÁááÁ",
+            "!!! !!!",
+            "!!!!!!!",
+            " Centro",
+            "-Vila",
+            "/Jardim",
+            "'Bairro",
+            "ÿacento",
+            "Centro Зafbбcб",
+            "Vila ♥ ♦ € ∞",
+            "Jardim ЗБИОЧ",
+            "Bairro αβγδε",
+        )
+
+        validFantasyNames.forEach {
+            assertTrue(pattern.matcher(it).matches(), "Should match valid neighborhood: '$it'")
+        }
+
+        invalidFantasyNames.forEach {
+            assertFalse(pattern.matcher(it).matches(), "Should not match invalid neighborhood: '$it'")
+        }
+    }
 }
