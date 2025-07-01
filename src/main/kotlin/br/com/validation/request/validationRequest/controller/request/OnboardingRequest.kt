@@ -61,7 +61,7 @@ data class OnboardingRequest (
         @field:[NotBlank Size(min = 1, max = 6) Pattern(regexp = PatternRegex.NUMBER_ADDRESS_VALID)]
         val number: String,
 
-        @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.COMPLEMENTARY_ADDRESS)]
+        @field:[NotNull Size(max = 60) Pattern(regexp = PatternRegex.COMPLEMENTARY_ADDRESS)]
         val complementaryAddress: String,
 
         @field:[NotBlank Size(max = 60) Pattern(regexp = PatternRegex.NEIGHBORHOOD_VALID)]
